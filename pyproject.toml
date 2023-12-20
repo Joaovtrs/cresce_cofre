@@ -6,10 +6,11 @@ authors = ["João <oliveira.joaovtr@gmail.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.11"
-kivy = "^2.2.1"
+python = ">=3.11,<3.12"
 peewee = "^3.17.0"
 yfinance = "^0.2.33"
+pyside6 = "^6.6.1"
+pyqtdarktheme = "^2.1.0"
 
 
 [tool.poetry.group.dev.dependencies]
