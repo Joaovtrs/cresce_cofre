@@ -15,3 +15,6 @@ class System:
     def criar_db(self, caminho):
         self.abrir_db(caminho)
         database.create_tables([Acoes])
+
+
+sistema = System()

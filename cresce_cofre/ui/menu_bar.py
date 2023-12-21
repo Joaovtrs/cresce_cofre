@@ -1,11 +1,16 @@
 from PySide6.QtWidgets import QFileDialog, QMenuBar
+from system import sistema
+import os
+
+desktop = os.path.join(os.path.join(os.environ['USERPROFILE']),
+                       'OneDrive\\Área de Trabalho')
+print(desktop)
 
 
 class MenuBar(QMenuBar):
-    def __init__(self, sistema, func_atualizar, parent=None):
+    def __init__(self, func_atualizar, parent=None):
         super().__init__(parent)
 
-        self.sistema = sistema
         self.func_atualizar = func_atualizar
 
         self.arquivo = self.addMenu('Arquivo')
@@ -18,22 +23,27 @@ class MenuBar(QMenuBar):
         self.arquivo_abrir.setShortcut('Ctrl+O')
         self.arquivo_abrir.triggered.connect(self.abrir_arquivo)
 
+    def atualizar(self):
+        pass
+
     def criar_arquivo(self):
         caminho = QFileDialog.getSaveFileName(
             parent=self,
             caption='Salvar como',
-            filter='*.db'
+            filter='*.db',
+            dir=desktop
         )
         if caminho[0]:
-            self.sistema.criar_db(caminho[0])
+            sistema.criar_db(caminho[0])
             self.func_atualizar()
 
     def abrir_arquivo(self):
         caminho = QFileDialog.getOpenFileName(
             parent=self,
             caption='Abrir',
-            filter='*.db'
+            filter='*.db',
+            dir=desktop
         )
         if caminho[0]:
-            self.sistema.abrir_db(caminho[0])
+            sistema.abrir_db(caminho[0])
             self.func_atualizar()

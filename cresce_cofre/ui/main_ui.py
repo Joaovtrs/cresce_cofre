@@ -1,13 +1,12 @@
 from PySide6.QtWidgets import QHBoxLayout, QMainWindow, QWidget
 
 from .menu_bar import MenuBar
+from system import sistema
 
 
 class MainUI(QMainWindow):
-    def __init__(self, sistema, parent=None):
+    def __init__(self, parent=None):
         super().__init__(parent)
-
-        self.sistema = sistema
 
         self.resize(800, 600)
         self.setWindowTitle('Inverto')
@@ -17,15 +16,17 @@ class MainUI(QMainWindow):
 
         self.main_grid = QHBoxLayout(self.main_widget)
 
-        self.menu_bar = MenuBar(self.sistema, self.atualizar, self)
+        self.menu_bar = MenuBar(self.atualizar, self)
         self.setMenuBar(self.menu_bar)
 
         self.showMaximized()
         self.atualizar()
 
     def atualizar(self):
-        if self.sistema.caminho is not None:
-            arquivo = str(self.sistema.caminho).split('/')[-1]
+        if sistema.caminho is not None:
+            arquivo = str(sistema.caminho).split('/')[-1]
             self.setWindowTitle('Inverto: ' + str(arquivo))
         else:
             self.setWindowTitle('Inverto')
+
+        self.menu_bar.atualizar()
