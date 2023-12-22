@@ -1,16 +1,16 @@
+import os
+
+from logs import logger
 from PySide6.QtWidgets import QFileDialog, QMenuBar
 from system import sistema
-import os
-from loguru import logger
 
 desktop = os.path.join(os.path.join(os.environ['USERPROFILE']),
                        'OneDrive\\Área de Trabalho')
 
 
 class MenuBar(QMenuBar):
+    @logger.class_init
     def __init__(self, func_atualizar, parent=None):
-        logger.info('Inicializando classe MenuBar')
-
         super().__init__(parent)
 
         self.func_atualizar = func_atualizar
@@ -25,13 +25,12 @@ class MenuBar(QMenuBar):
         self.arquivo_abrir.setShortcut('Ctrl+O')
         self.arquivo_abrir.triggered.connect(self.abrir_arquivo)
 
-    @staticmethod
-    def atualizar():
-        logger.info('Atualizando MenuBar')
+    @logger.class_method_init
+    def atualizar(self):
+        pass
 
+    @logger.class_method_init
     def criar_arquivo(self):
-        logger.info('Chamada de função "criar_arquivo" no MenuBar')
-
         caminho = QFileDialog.getSaveFileName(
             parent=self,
             caption='Salvar como',
@@ -45,9 +44,8 @@ class MenuBar(QMenuBar):
         else:
             logger.warning('Caminho não encontrado')
 
+    @logger.class_method_init
     def abrir_arquivo(self):
-        logger.info('Chamada de função "abrir_arquivo" no MenuBar')
-
         caminho = QFileDialog.getOpenFileName(
             parent=self,
             caption='Abrir',

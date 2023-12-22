@@ -1,15 +1,13 @@
+from logs import logger
 from PySide6.QtWidgets import QHBoxLayout, QMainWindow, QWidget
-
-from .menu_bar import MenuBar
 from system import sistema
 
-from loguru import logger
+from .menu_bar import MenuBar
 
 
 class MainUI(QMainWindow):
+    @logger.class_init
     def __init__(self, parent=None):
-        logger.info('Inicializando classe MainUI')
-
         super().__init__(parent)
 
         self.resize(800, 600)
@@ -26,9 +24,8 @@ class MainUI(QMainWindow):
         self.showMaximized()
         self.atualizar()
 
+    @logger.class_method_init
     def atualizar(self):
-        logger.info('Atualizando MainUI')
-
         if sistema.caminho is not None:
             arquivo = str(sistema.caminho).split('/')[-1]
             self.setWindowTitle('Inverto: ' + str(arquivo))

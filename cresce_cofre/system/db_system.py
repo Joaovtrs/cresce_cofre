@@ -1,5 +1,5 @@
-from peewee import Model, SqliteDatabase, TextField, DoubleField, IntegerField
-from loguru import logger
+from logs import logger
+from peewee import DoubleField, IntegerField, Model, SqliteDatabase, TextField
 
 database = SqliteDatabase(None)
 
@@ -10,8 +10,6 @@ class BaseModel(Model):
 
 
 class Acoes(BaseModel):
-    logger.info('Inicializando classe Acoes')
-
     nome = TextField()
     key = TextField()
     quantidade = IntegerField()
