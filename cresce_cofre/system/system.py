@@ -1,6 +1,6 @@
 from logs import logger
 
-from .db_system import Acoes, database
+from .db_system import Acoes, Transacoes, database
 
 
 class System:
@@ -19,7 +19,7 @@ class System:
     @logger.class_method_init
     def criar_db(self, caminho):
         self.abrir_db(caminho)
-        database.create_tables([Acoes])
+        database.create_tables([Acoes, Transacoes])
 
 
 sistema = System()
