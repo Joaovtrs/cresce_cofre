@@ -8,8 +8,10 @@ from PySide6.QtWidgets import (QVBoxLayout, QPushButton, QSizePolicy,
 
 class MainMenu(QWidget):
     @logger.class_init
-    def __init__(self, parent=None):
+    def __init__(self, viewer, parent=None):
         super().__init__(parent)
+
+        self.viewer = viewer
 
         self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         self.setMinimumWidth(100)
