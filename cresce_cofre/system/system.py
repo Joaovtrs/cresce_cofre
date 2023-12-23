@@ -21,5 +21,15 @@ class System:
         self.abrir_db(caminho)
         database.create_tables([Acoes, Transacoes])
 
+    @logger.class_method_init
+    def add_acao(self, _nome, _key, _quantidade, _valor_medio, _valor_total):
+        Acoes.create(
+            nome=_nome,
+            key=_key,
+            quantidade=_quantidade,
+            valor_medio=_valor_medio,
+            valor_total=_valor_total
+        )
+
 
 sistema = System()

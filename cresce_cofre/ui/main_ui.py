@@ -2,7 +2,8 @@ from logs import logger
 from PySide6.QtWidgets import QHBoxLayout, QMainWindow, QWidget
 from system import sistema
 
-from .menu_bar import MenuBar
+from .main_menu_bar import MainMenuBar
+from .main_menu import MainMenu
 
 
 class MainUI(QMainWindow):
@@ -13,13 +14,16 @@ class MainUI(QMainWindow):
         self.resize(800, 600)
         self.setWindowTitle('Inverto')
 
+        self.menu_bar = MainMenuBar(self.atualizar, self)
+        self.setMenuBar(self.menu_bar)
+
         self.main_widget = QWidget(self)
         self.setCentralWidget(self.main_widget)
 
         self.main_grid = QHBoxLayout(self.main_widget)
 
-        self.menu_bar = MenuBar(self.atualizar, self)
-        self.setMenuBar(self.menu_bar)
+        self.menu = MainMenu(self.main_widget)
+        self.main_grid.addWidget(self.menu)
 
         self.showMaximized()
         self.atualizar()

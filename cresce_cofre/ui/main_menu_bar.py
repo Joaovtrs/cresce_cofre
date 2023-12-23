@@ -8,7 +8,7 @@ desktop = os.path.join(os.path.join(os.environ['USERPROFILE']),
                        'OneDrive\\Área de Trabalho')
 
 
-class MenuBar(QMenuBar):
+class MainMenuBar(QMenuBar):
     @logger.class_init
     def __init__(self, func_atualizar, parent=None):
         super().__init__(parent)

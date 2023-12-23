@@ -13,9 +13,9 @@ class BaseModel(Model):
 class Acoes(BaseModel):
     nome = TextField()
     key = TextField()
-    quantidade = IntegerField()
-    valor_medio = DoubleField()
-    Valor_total = DoubleField()
+    quantidade = IntegerField(null=True, default=0)
+    valor_medio = DoubleField(null=True, default=0.0)
+    valor_total = DoubleField(null=True, default=0.0)
 
 
 class Transacoes(BaseModel):
