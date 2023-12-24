@@ -1,13 +1,13 @@
 from logs import logger
 from PySide6.QtCore import QPropertyAnimation
-from PySide6.QtWidgets import QSizePolicy, QSpacerItem, QVBoxLayout, QWidget
+from PySide6.QtWidgets import QFrame, QSizePolicy, QSpacerItem, QVBoxLayout
 
 from .main_menu_buttons import MainManuButton
 
 # from system import sistema
 
 
-class MainMenu(QWidget):
+class MainMenu(QFrame):
     @logger.class_init
     def __init__(self, viewer, parent=None):
         super().__init__(parent)
@@ -17,6 +17,8 @@ class MainMenu(QWidget):
         self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         self.setMinimumWidth(200)
         self.setMaximumWidth(200)
+
+        self.setFrameShape(QFrame.Panel)
 
         self.grid = QVBoxLayout(self)
 

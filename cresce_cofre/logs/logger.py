@@ -14,7 +14,7 @@ def class_method_init(f):
 
 def class_init(f):
     def func(*args, **kwargs):
-        logger.log('CLASS', f'Iniciando a classe "{type(args[0]).__name__}"')
+        logger.log('CLASS', f'Criando objeto classe "{type(args[0]).__name__}"')
         return f(*args, **kwargs)
 
     return func

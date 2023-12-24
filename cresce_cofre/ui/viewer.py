@@ -10,7 +10,6 @@ class Viewer(QStackedWidget):
         self.func_atualizar = func_atualizar
 
         self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        self.setMinimumSize(500, 100)
 
         self.currentChanged.connect(self.mudanca_tela)
 

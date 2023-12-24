@@ -14,6 +14,7 @@ class MainUI(QMainWindow):
 
         self.resize(800, 600)
         self.setWindowTitle('Inverto')
+        self.setMinimumSize(800, 600)
 
         self.menu_bar = MainMenuBar(self.atualizar, self)
         self.setMenuBar(self.menu_bar)
