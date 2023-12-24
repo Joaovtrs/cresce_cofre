@@ -1,5 +1,5 @@
 from logs import logger
-from PySide6.QtWidgets import QStackedWidget, QSizePolicy
+from PySide6.QtWidgets import QSizePolicy, QStackedWidget
 
 
 class Viewer(QStackedWidget):

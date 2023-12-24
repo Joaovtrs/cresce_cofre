@@ -2,8 +2,8 @@ from logs import logger
 from PySide6.QtWidgets import QHBoxLayout, QMainWindow, QWidget
 from system import sistema
 
-from .main_menu_bar import MainMenuBar
 from .main_menu import MainMenu
+from .main_menu_bar import MainMenuBar
 from .viewer import Viewer
 
 
