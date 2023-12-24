@@ -24,6 +24,8 @@ class MainMenu(QWidget):
         self.btn_menu = self.cria_btn('Menu', 'icons/menu.png')
         self.btn_menu.clicked.connect(self.func_btn_menu)
 
+        self.btn_1 = self.cria_btn('1')
+
         self.btn_2 = self.cria_btn('2')
 
         self.spacer = QSpacerItem(
