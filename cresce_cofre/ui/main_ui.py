@@ -10,6 +10,7 @@ from .viewer import Viewer
 class MainUI(QMainWindow):
     def __init__(self, parent=None):
         super().__init__(parent)
+        logger.log('CLASS', 'Criando classe "MainUI"')
 
         self.resize(800, 600)
         self.setWindowTitle('Inverto')
@@ -33,6 +34,8 @@ class MainUI(QMainWindow):
         self.atualizar()
 
     def atualizar(self):
+        logger.log('METHOD', 'Chamando função "MainUI.atualizar"')
+
         if sistema.caminho is not None:
             arquivo = str(sistema.caminho).split('/')[-1]
             self.setWindowTitle('Inverto: ' + str(arquivo))

@@ -5,11 +5,16 @@ from .db_system import Acoes, Transacoes, database
 
 class System:
     def __init__(self):
+        logger.log('CLASS', 'Criando classe "System"')
+
         self.caminho = None
         self.is_open = False
 
     def abrir_db(self, caminho):
+        logger.log('METHOD', 'Chamando função "System.abrir_db"')
+
         if not database.is_closed():
+            logger.debug('Database fechado')
             database.close()
 
         self.caminho = caminho
@@ -17,11 +22,15 @@ class System:
         self.is_open = True
 
     def criar_db(self, caminho):
+        logger.log('METHOD', 'Chamando função "System.criar_db"')
+
         self.abrir_db(caminho)
         database.create_tables([Acoes, Transacoes])
 
     @staticmethod
     def add_acao(_nome, _key, _quantidade, _valor_medio, _valor_total):
+        logger.log('METHOD', 'Chamando função "System.add_acao"')
+
         Acoes.create(
             nome=_nome,
             key=_key,
@@ -32,6 +41,8 @@ class System:
 
     @staticmethod
     def get_acoes():
+        logger.log('METHOD', 'Chamando função "System.get_acao"')
+
         response = Acoes.select()
         result = []
 

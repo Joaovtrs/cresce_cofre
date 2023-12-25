@@ -11,6 +11,7 @@ desktop = os.path.join(os.path.join(os.environ['USERPROFILE']),
 class MainMenuBar(QMenuBar):
     def __init__(self, func_atualizar, parent=None):
         super().__init__(parent)
+        logger.log('CLASS', 'Criando classe "MainMenuBar"')
 
         self.func_atualizar = func_atualizar
 
@@ -25,6 +26,8 @@ class MainMenuBar(QMenuBar):
         self.arquivo_abrir.triggered.connect(self.abrir_arquivo)
 
     def criar_arquivo(self):
+        logger.log('METHOD', 'Chamando função "MainMenuBar.criar_arquivo"')
+
         caminho = QFileDialog.getSaveFileName(
             parent=self,
             caption='Salvar como',
@@ -39,6 +42,8 @@ class MainMenuBar(QMenuBar):
             logger.warning('Caminho não encontrado')
 
     def abrir_arquivo(self):
+        logger.log('METHOD', 'Chamando função "MainMenuBar.abrir_arquivo"')
+
         caminho = QFileDialog.getOpenFileName(
             parent=self,
             caption='Abrir',

@@ -6,6 +6,7 @@ from PySide6.QtWidgets import QPushButton, QSizePolicy
 class MainManuButton(QPushButton):
     def __init__(self, texto, caminho=None, parent=None):
         super().__init__(texto, parent)
+        logger.log('CLASS', 'Criando classe "MainManuButton"')
 
         self.caminho = caminho
 
@@ -20,6 +21,8 @@ class MainManuButton(QPushButton):
             self.setIcon(icon)
 
     def btn_resize(self):
+        logger.log('METHOD', 'Chamando função "MainManuButton.btn_resize"')
+
         if not self.icon().isNull():
             if self.width() < 170:
                 self.setText('')

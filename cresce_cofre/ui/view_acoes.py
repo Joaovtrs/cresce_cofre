@@ -1,13 +1,16 @@
 from loguru import logger
-from PySide6.QtWidgets import (QFrame, QHBoxLayout, QTableWidget,
-                               QTableWidgetItem, QVBoxLayout)
 from PySide6.QtCore import Qt
+from PySide6.QtWidgets import (QFrame, QHBoxLayout, QSizePolicy, QSpacerItem,
+                               QTableWidget, QTableWidgetItem, QVBoxLayout)
 from system import sistema
+
+from .main_menu_buttons import MainManuButton
 
 
 class ViewAcoes(QFrame):
     def __init__(self, parent=None):
         super().__init__(parent)
+        logger.log('CLASS', 'Criando classe "ViewAcoes"')
 
         self.setFrameShape(QFrame.Panel)
 
@@ -24,12 +27,15 @@ class ViewAcoes(QFrame):
         self.grid.addWidget(self.opcoes)
 
     def atualizar(self):
+        logger.log('METHOD', 'Chamando função "ViewAcoes.atualizar"')
+
         self.view.atualizar()
 
 
 class View(QFrame):
     def __init__(self, parent=None):
         super().__init__(parent)
+        logger.log('CLASS', 'Criando classe "ViewAcoes.View"')
 
         self.setFrameShape(QFrame.Panel)
         self.grid = QVBoxLayout(self)
@@ -39,6 +45,8 @@ class View(QFrame):
         self.grid.addWidget(self.tabela)
 
     def atualizar(self):
+        logger.log('METHOD', 'Chamando função "ViewAcoes.View.atualizar"')
+
         self.tabela.clear()
 
         self.tabela.setColumnCount(5)
@@ -62,6 +70,8 @@ class View(QFrame):
                 self.add_item(i, 4, str(a['valor_total']))
 
     def add_item(self, coluna, linha, i):
+        logger.log('METHOD', 'Chamando função "ViewAcoes.View.add_item"')
+
         item = QTableWidgetItem(i)
         item.setTextAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
         self.tabela.setItem(coluna, linha, item)
@@ -70,7 +80,25 @@ class View(QFrame):
 class Opcoes(QFrame):
     def __init__(self, parent=None):
         super().__init__(parent)
+        logger.log('CLASS', 'Criando classe "ViewAcoes.Opcoes"')
 
         self.setFrameShape(QFrame.Panel)
         self.setMaximumWidth(100)
         self.setMinimumWidth(100)
+
+        self.grid = QVBoxLayout(self)
+
+        self.botao_mais = MainManuButton('', 'icons/add.png')
+        self.grid.addWidget(self.botao_mais)
+
+        self.botao_menos = MainManuButton('', 'icons/cancel.png')
+        self.grid.addWidget(self.botao_menos)
+
+        self.botao_ajuste = MainManuButton('', 'icons/wrench.png')
+        self.grid.addWidget(self.botao_ajuste)
+
+        self.spacer = QSpacerItem(
+            10, 10, QSizePolicy.Minimum,
+            QSizePolicy.Expanding
+        )
+        self.grid.addItem(self.spacer)

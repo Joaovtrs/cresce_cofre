@@ -11,6 +11,8 @@ class BaseModel(Model):
 
 
 class Acoes(BaseModel):
+    logger.log('CLASS', 'Criando classe "Acoes"')
+
     nome = TextField()
     key = TextField()
     quantidade = IntegerField(null=True, default=0)
@@ -19,6 +21,8 @@ class Acoes(BaseModel):
 
 
 class Transacoes(BaseModel):
+    logger.log('CLASS', 'Criando classe "Transacoes"')
+
     data = DateField()
     acao = ForeignKeyField(Acoes, backref='transacoes')
     quantidade = IntegerField()

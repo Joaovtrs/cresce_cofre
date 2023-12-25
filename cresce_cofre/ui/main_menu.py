@@ -10,6 +10,7 @@ from .main_menu_buttons import MainManuButton
 class MainMenu(QFrame):
     def __init__(self, viewer, parent=None):
         super().__init__(parent)
+        logger.log('CLASS', 'Criando classe "MainMenu"')
 
         self.viewer = viewer
 
@@ -44,10 +45,13 @@ class MainMenu(QFrame):
         self.btn_1.clicked.connect(lambda: self.viewer.setCurrentIndex(0))
 
     def func_btn_menu(self):
+        logger.log('METHOD', 'Chamando função "MainMenu.func_btn_menu"')
+
         anim_max = QPropertyAnimation(self, b'maximumWidth', self)
         anim_min = QPropertyAnimation(self, b'minimumWidth', self)
         anim_max.setDuration(100)
         anim_min.setDuration(100)
+
         if self.width() == 80:
             logger.debug('Abrindo menu')
             anim_max.setStartValue(80)
