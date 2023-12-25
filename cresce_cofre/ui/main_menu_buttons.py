@@ -23,7 +23,7 @@ class MainManuButton(QPushButton):
     # @logger.class_method_init
     def btn_resize(self):
         if not self.icon().isNull():
-            if self.width() < 150:
+            if self.width() < 170:
                 self.setText('')
             else:
                 self.setText(self.texto)
