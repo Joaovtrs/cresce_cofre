@@ -41,4 +41,4 @@ class MainUI(QMainWindow):
         else:
             self.setWindowTitle('Inverto')
 
-        self.menu_bar.atualizar()
+        self.viewer.atualizar()

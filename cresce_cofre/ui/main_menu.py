@@ -26,7 +26,11 @@ class MainMenu(QFrame):
         self.grid.addWidget(self.btn_menu)
         self.btn_menu.clicked.connect(self.func_btn_menu)
 
-        self.btn_1 = MainManuButton(' 1', None, self)
+        self.separador = QFrame(self)
+        self.separador.setFrameShape(QFrame.HLine)
+        self.grid.addWidget(self.separador)
+
+        self.btn_1 = MainManuButton(' Ações', 'icons/acoes.png', self)
         self.grid.addWidget(self.btn_1)
 
         self.btn_2 = MainManuButton(' 2', None, self)
@@ -37,6 +41,8 @@ class MainMenu(QFrame):
             QSizePolicy.Expanding
         )
         self.grid.addItem(self.spacer)
+
+        self.btn_1.clicked.connect(lambda: self.viewer.setCurrentIndex(0))
 
     @logger.class_method_init
     def func_btn_menu(self):

@@ -26,10 +26,6 @@ class MainMenuBar(QMenuBar):
         self.arquivo_abrir.triggered.connect(self.abrir_arquivo)
 
     @logger.class_method_init
-    def atualizar(self):
-        pass
-
-    @logger.class_method_init
     def criar_arquivo(self):
         caminho = QFileDialog.getSaveFileName(
             parent=self,

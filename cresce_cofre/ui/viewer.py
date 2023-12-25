@@ -1,6 +1,8 @@
 from logs import logger
 from PySide6.QtWidgets import QSizePolicy, QStackedWidget
 
+from .view_acoes import ViewAcoes
+
 
 class Viewer(QStackedWidget):
     @logger.class_init
@@ -11,8 +13,11 @@ class Viewer(QStackedWidget):
 
         self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
 
-        self.currentChanged.connect(self.mudanca_tela)
+        self.view_acoes = ViewAcoes(self)
+        self.addWidget(self.view_acoes)
+
+        self.currentChanged.connect(lambda *args: self.func_atualizar())
 
     @logger.class_method_init
-    def mudanca_tela(self):
-        self.func_atualizar()
+    def atualizar(self):
+        self.view_acoes.atualizar()
