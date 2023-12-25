@@ -1,4 +1,4 @@
-from logs import logger
+from loguru import logger
 from peewee import (BooleanField, DateField, DoubleField, ForeignKeyField,
                     IntegerField, Model, SqliteDatabase, TextField)
 

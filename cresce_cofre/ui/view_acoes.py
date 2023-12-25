@@ -1,10 +1,11 @@
-from logs import logger
-from PySide6.QtWidgets import QFrame, QHBoxLayout, QTableWidget, QVBoxLayout
+from loguru import logger
+from PySide6.QtWidgets import (QFrame, QHBoxLayout, QTableWidget,
+                               QTableWidgetItem, QVBoxLayout)
+from PySide6.QtCore import Qt
 from system import sistema
 
 
 class ViewAcoes(QFrame):
-    @logger.class_init
     def __init__(self, parent=None):
         super().__init__(parent)
 
@@ -22,28 +23,51 @@ class ViewAcoes(QFrame):
         self.opcoes = Opcoes(self)
         self.grid.addWidget(self.opcoes)
 
-    @logger.class_method_init
     def atualizar(self):
-        pass
+        self.view.atualizar()
 
 
 class View(QFrame):
-    @logger.class_init
     def __init__(self, parent=None):
         super().__init__(parent)
 
         self.setFrameShape(QFrame.Panel)
         self.grid = QVBoxLayout(self)
 
-        self.tabela = QTableWidget(50, 5, self)
+        self.tabela = QTableWidget(self)
+
         self.grid.addWidget(self.tabela)
 
     def atualizar(self):
-        pass
+        self.tabela.clear()
+
+        self.tabela.setColumnCount(5)
+        self.tabela.setHorizontalHeaderLabels([
+            'Nome', 'Chave', 'Quantidade', 'Valor médio', 'Valor total'
+        ])
+        self.tabela.setColumnWidth(0, 300)
+        self.tabela.setColumnWidth(1, 300)
+        self.tabela.setColumnWidth(2, 300)
+        self.tabela.setColumnWidth(3, 300)
+        self.tabela.setColumnWidth(4, 300)
+
+        if sistema.is_open:
+            acoes = sistema.get_acoes()
+            self.tabela.setRowCount(len(acoes))
+            for i, a in enumerate(acoes):
+                self.add_item(i, 0, str(a['nome']))
+                self.add_item(i, 1, str(a['key']))
+                self.add_item(i, 2, str(a['quantidade']))
+                self.add_item(i, 3, str(a['valor_medio']))
+                self.add_item(i, 4, str(a['valor_total']))
+
+    def add_item(self, coluna, linha, i):
+        item = QTableWidgetItem(i)
+        item.setTextAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
+        self.tabela.setItem(coluna, linha, item)
 
 
 class Opcoes(QFrame):
-    @logger.class_init
     def __init__(self, parent=None):
         super().__init__(parent)
 

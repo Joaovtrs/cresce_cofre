@@ -1,4 +1,4 @@
-from logs import logger
+from loguru import logger
 from PySide6.QtWidgets import QHBoxLayout, QMainWindow, QWidget
 from system import sistema
 
@@ -8,7 +8,6 @@ from .viewer import Viewer
 
 
 class MainUI(QMainWindow):
-    @logger.class_init
     def __init__(self, parent=None):
         super().__init__(parent)
 
@@ -33,7 +32,6 @@ class MainUI(QMainWindow):
         self.showMaximized()
         self.atualizar()
 
-    @logger.class_method_init
     def atualizar(self):
         if sistema.caminho is not None:
             arquivo = str(sistema.caminho).split('/')[-1]

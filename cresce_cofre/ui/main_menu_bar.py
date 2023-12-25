@@ -1,6 +1,6 @@
 import os
 
-from logs import logger
+from loguru import logger
 from PySide6.QtWidgets import QFileDialog, QMenuBar
 from system import sistema
 
@@ -9,7 +9,6 @@ desktop = os.path.join(os.path.join(os.environ['USERPROFILE']),
 
 
 class MainMenuBar(QMenuBar):
-    @logger.class_init
     def __init__(self, func_atualizar, parent=None):
         super().__init__(parent)
 
@@ -25,7 +24,6 @@ class MainMenuBar(QMenuBar):
         self.arquivo_abrir.setShortcut('Ctrl+O')
         self.arquivo_abrir.triggered.connect(self.abrir_arquivo)
 
-    @logger.class_method_init
     def criar_arquivo(self):
         caminho = QFileDialog.getSaveFileName(
             parent=self,
@@ -40,7 +38,6 @@ class MainMenuBar(QMenuBar):
         else:
             logger.warning('Caminho não encontrado')
 
-    @logger.class_method_init
     def abrir_arquivo(self):
         caminho = QFileDialog.getOpenFileName(
             parent=self,

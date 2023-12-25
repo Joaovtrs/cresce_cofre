@@ -1,4 +1,4 @@
-from logs import logger
+from loguru import logger
 from PySide6.QtCore import QPropertyAnimation
 from PySide6.QtWidgets import QFrame, QSizePolicy, QSpacerItem, QVBoxLayout
 
@@ -8,7 +8,6 @@ from .main_menu_buttons import MainManuButton
 
 
 class MainMenu(QFrame):
-    @logger.class_init
     def __init__(self, viewer, parent=None):
         super().__init__(parent)
 
@@ -44,7 +43,6 @@ class MainMenu(QFrame):
 
         self.btn_1.clicked.connect(lambda: self.viewer.setCurrentIndex(0))
 
-    @logger.class_method_init
     def func_btn_menu(self):
         anim_max = QPropertyAnimation(self, b'maximumWidth', self)
         anim_min = QPropertyAnimation(self, b'minimumWidth', self)

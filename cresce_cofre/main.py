@@ -1,6 +1,6 @@
 import sys
 
-from logs import logger
+from loguru import logger
 from PySide6.QtWidgets import QApplication
 from qdarktheme import setup_theme
 from ui import MainUI
