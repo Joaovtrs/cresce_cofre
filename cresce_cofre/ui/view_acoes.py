@@ -5,6 +5,7 @@ from PySide6.QtWidgets import (QFrame, QHBoxLayout, QSizePolicy, QSpacerItem,
 from system import sistema
 
 from .main_menu_buttons import MainManuButton
+from .nova_acao import NovaAcao
 
 
 class ViewAcoes(QFrame):
@@ -30,6 +31,7 @@ class ViewAcoes(QFrame):
         logger.log('METHOD', 'Chamando função "ViewAcoes.atualizar"')
 
         self.view.atualizar()
+        self.opcoes.atualizar()
 
 
 class View(QFrame):
@@ -86,9 +88,12 @@ class Opcoes(QFrame):
         self.setMaximumWidth(100)
         self.setMinimumWidth(100)
 
+        self.janela_nova_acao = None
+
         self.grid = QVBoxLayout(self)
 
         self.botao_mais = MainManuButton('', 'icons/add.png')
+        self.botao_mais.clicked.connect(self.abrir_janela_nova_acao)
         self.grid.addWidget(self.botao_mais)
 
         self.botao_menos = MainManuButton('', 'icons/cancel.png')
@@ -98,7 +103,29 @@ class Opcoes(QFrame):
         self.grid.addWidget(self.botao_ajuste)
 
         self.spacer = QSpacerItem(
-            10, 10, QSizePolicy.Minimum,
+            10, 10,
+            QSizePolicy.Minimum,
             QSizePolicy.Expanding
         )
         self.grid.addItem(self.spacer)
+
+    def atualizar(self):
+        logger.log('METHOD', 'Chamando função "ViewAcoes.Opcoes.atualizar"')
+
+        if sistema.is_open:
+            self.botao_mais.setDisabled(False)
+            self.botao_menos.setDisabled(False)
+            self.botao_ajuste.setDisabled(False)
+        else:
+            self.botao_mais.setDisabled(True)
+            self.botao_menos.setDisabled(True)
+            self.botao_ajuste.setDisabled(True)
+
+    def abrir_janela_nova_acao(self):
+        logger.log(
+            'METHOD',
+            'Chamando função "ViewAcoes.Opcoes.abrir_janela_nova_acao"'
+        )
+
+        self.janela_nova_acao = NovaAcao()
+        self.janela_nova_acao.show()

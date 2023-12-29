@@ -2,8 +2,8 @@ import sys
 
 from loguru import logger
 
-method_call = logger.level('METHOD', no=21, color='<b><g>')
-class_call = logger.level('CLASS', no=22, color='<b><fg 50,50,250>')
+method_call = logger.level('METHOD', no=11, color='<b><fg 140,140,140>')
+class_call = logger.level('CLASS', no=12, color='<b><fg 50,50,250>')
 
 from PySide6.QtWidgets import QApplication
 from qdarktheme import setup_theme

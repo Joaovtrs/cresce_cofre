@@ -44,6 +44,8 @@ class MainMenu(QFrame):
 
         self.btn_1.clicked.connect(lambda: self.viewer.setCurrentIndex(0))
 
+        self.func_btn_menu()
+
     def func_btn_menu(self):
         logger.log('METHOD', 'Chamando função "MainMenu.func_btn_menu"')
 

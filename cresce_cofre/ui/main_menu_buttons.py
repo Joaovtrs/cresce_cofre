@@ -16,6 +16,10 @@ class MainManuButton(QPushButton):
         self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         self.resizeEvent = lambda args: self.btn_resize()
 
+        self.setStyleSheet('''QPushButton:disabled {
+         border: 1px solid #aa0000;
+         }''')
+
         if self.caminho is not None:
             icon = QIcon(self.caminho)
             self.setIcon(icon)
