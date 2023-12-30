@@ -9,9 +9,11 @@ from .nova_acao import NovaAcao
 
 
 class ViewAcoes(QFrame):
-    def __init__(self, parent=None):
+    def __init__(self, func_atualizar, parent=None):
         super().__init__(parent)
         logger.log('CLASS', 'Criando classe "ViewAcoes"')
+
+        self.func_atualizar = func_atualizar
 
         self.setFrameShape(QFrame.Panel)
 
@@ -24,7 +26,7 @@ class ViewAcoes(QFrame):
         self.separdor.setFrameShape(QFrame.VLine)
         self.grid.addWidget(self.separdor)
 
-        self.opcoes = Opcoes(self)
+        self.opcoes = Opcoes(self.func_atualizar, self)
         self.grid.addWidget(self.opcoes)
 
     def atualizar(self):
@@ -80,9 +82,11 @@ class View(QFrame):
 
 
 class Opcoes(QFrame):
-    def __init__(self, parent=None):
+    def __init__(self, func_atualizar, parent=None):
         super().__init__(parent)
         logger.log('CLASS', 'Criando classe "ViewAcoes.Opcoes"')
+
+        self.func_atualizar = func_atualizar
 
         self.setFrameShape(QFrame.Panel)
         self.setMaximumWidth(100)
@@ -127,5 +131,5 @@ class Opcoes(QFrame):
             'Chamando função "ViewAcoes.Opcoes.abrir_janela_nova_acao"'
         )
 
-        self.janela_nova_acao = NovaAcao()
+        self.janela_nova_acao = NovaAcao(self.func_atualizar)
         self.janela_nova_acao.show()

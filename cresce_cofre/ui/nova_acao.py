@@ -8,9 +8,11 @@ from system import sistema
 
 class NovaAcao(QWidget):
 
-    def __init__(self, parent=None):
+    def __init__(self, func_atualizar, parent=None):
         super().__init__(parent)
         logger.log('CLASS', 'Criando classe "NovaAcao"')
+
+        self.func_atualizar = func_atualizar
 
         self.setFixedSize(500, 200)
         self.setWindowTitle('Adicionar nova ação')
@@ -70,6 +72,8 @@ class NovaAcao(QWidget):
         self.grid_4.addWidget(self.btn_adicionar)
 
         self.btn_verificacao.clicked.connect(self.func_btn_verificar)
+        self.btn_cancelar.clicked.connect(self.func_btn_cancelar)
+        self.btn_adicionar.clicked.connect(self.func_btn_adicionar)
 
     def func_btn_verificar(self):
         logger.log('METHOD', 'Chamando função "NovaAcao.check_key_exist"')
@@ -89,3 +93,19 @@ class NovaAcao(QWidget):
                 self.lbl_verificacao.setText('Chave não existe')
             except Exception as e:
                 print(type(e))
+
+    def func_btn_cancelar(self):
+        logger.log('METHOD', 'Chamando função "NovaAcao.func_btn_cancelar"')
+
+        self.close()
+
+    def func_btn_adicionar(self):
+        nome = self.txt_nome.text()
+        key = self.txt_key.text().upper()
+
+        if nome and key:
+            sistema.add_acao(nome, key, 0, 0, 0)
+
+            self.func_atualizar()
+
+            self.close()

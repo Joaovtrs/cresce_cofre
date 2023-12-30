@@ -13,7 +13,7 @@ class Viewer(QStackedWidget):
 
         self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
 
-        self.view_acoes = ViewAcoes(self)
+        self.view_acoes = ViewAcoes(self.func_atualizar, self)
         self.addWidget(self.view_acoes)
 
         self.currentChanged.connect(lambda *args: self.func_atualizar())
