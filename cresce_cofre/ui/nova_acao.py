@@ -1,3 +1,5 @@
+import requests
+import yfinance as yf
 from loguru import logger
 from PySide6.QtWidgets import (QHBoxLayout, QLabel, QLineEdit, QPushButton,
                                QSizePolicy, QSpacerItem, QVBoxLayout, QWidget)
@@ -5,6 +7,7 @@ from system import sistema
 
 
 class NovaAcao(QWidget):
+
     def __init__(self, parent=None):
         super().__init__(parent)
         logger.log('CLASS', 'Criando classe "NovaAcao"')
@@ -65,3 +68,24 @@ class NovaAcao(QWidget):
 
         self.btn_adicionar = QPushButton('Adicionar', self)
         self.grid_4.addWidget(self.btn_adicionar)
+
+        self.btn_verificacao.clicked.connect(self.func_btn_verificar)
+
+    def func_btn_verificar(self):
+        logger.log('METHOD', 'Chamando função "NovaAcao.check_key_exist"')
+
+        key = self.txt_key.text()
+
+        if not key:
+            self.lbl_verificacao.setText('Chave não verificada')
+        else:
+            self.lbl_verificacao.setText('Verificando ...')
+            try:
+                key = key + '.SA'
+                ticker = yf.Ticker(key)
+                info = ticker.info
+                self.lbl_verificacao.setText('Chave existe')
+            except requests.exceptions.HTTPError:
+                self.lbl_verificacao.setText('Chave não existe')
+            except Exception as e:
+                print(type(e))
