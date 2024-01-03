@@ -37,9 +37,11 @@ class MainUI(QMainWindow):
         logger.log('METHOD', 'Chamando função "MainUI.atualizar"')
 
         if sistema.caminho is not None:
+            logger.debug('Atualização da janela com o caminho do arquivo')
             arquivo = str(sistema.caminho).split('/')[-1]
             self.setWindowTitle('Inverto: ' + str(arquivo))
         else:
+            logger.debug('Atualização da janela sem o caminho do arquivo')
             self.setWindowTitle('Inverto')
 
         self.viewer.atualizar()

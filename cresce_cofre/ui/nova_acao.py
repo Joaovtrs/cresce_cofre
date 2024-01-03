@@ -89,10 +89,15 @@ class NovaAcao(QWidget):
                 ticker = yf.Ticker(key)
                 info = ticker.info
                 self.lbl_verificacao.setText('Chave existe')
+                logger.debug('Varificação achou a ação')
             except requests.exceptions.HTTPError:
                 self.lbl_verificacao.setText('Chave não existe')
+                logger.debug('Varificação não achou a ação')
             except Exception as e:
-                print(type(e))
+                logger.critical(
+                    f'Varificação de ação apresentou erro desconhecido: ' +
+                    f'{type(e)}: {e}'
+                )
 
     def func_btn_cancelar(self):
         logger.log('METHOD', 'Chamando função "NovaAcao.func_btn_cancelar"')
@@ -100,6 +105,8 @@ class NovaAcao(QWidget):
         self.close()
 
     def func_btn_adicionar(self):
+        logger.log('METHOD', 'Chamando função "NovaAcao.func_btn_adicionar"')
+
         nome = self.txt_nome.text()
         key = self.txt_key.text().upper()
 

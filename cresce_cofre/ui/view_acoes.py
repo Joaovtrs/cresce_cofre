@@ -45,6 +45,7 @@ class View(QFrame):
         self.grid = QVBoxLayout(self)
 
         self.tabela = QTableWidget(self)
+        self.tabela.setEditTriggers(QTableWidget.NoEditTriggers)
 
         self.grid.addWidget(self.tabela)
 

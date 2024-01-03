@@ -14,7 +14,7 @@ class System:
         logger.log('METHOD', 'Chamando função "System.abrir_db"')
 
         if not database.is_closed():
-            logger.debug('Database fechado')
+            logger.debug('Banco de dados fechado')
             database.close()
 
         self.caminho = caminho

@@ -39,7 +39,7 @@ class MainMenuBar(QMenuBar):
             sistema.criar_db(caminho[0])
             self.func_atualizar()
         else:
-            logger.warning('Caminho não encontrado')
+            logger.warning('Nenhum caminho selecionado')
 
     def abrir_arquivo(self):
         logger.log('METHOD', 'Chamando função "MainMenuBar.abrir_arquivo"')
@@ -55,4 +55,4 @@ class MainMenuBar(QMenuBar):
             sistema.abrir_db(caminho[0])
             self.func_atualizar()
         else:
-            logger.warning('Caminho não encontrado')
+            logger.warning('Nenhum caminho selecionado')
