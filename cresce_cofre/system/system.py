@@ -44,12 +44,16 @@ class System:
         logger.log('METHOD', 'Chamando função "System.get_acao"')
 
         response = Acoes.select()
-        result = []
-
-        for item in response.dicts():
-            result.append(item)
+        result = [item for item in response.dicts()]
 
         return result
+
+    @staticmethod
+    def excluir_acao(acao):
+        logger.log('METHOD', 'Chamando função "System.excluir_acao"')
+
+        Acoes.delete().where(Acoes.key == acao).execute()#.get()
+        # print(resultado.nome)
 
 
 sistema = System()

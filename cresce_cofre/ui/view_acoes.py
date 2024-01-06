@@ -4,6 +4,7 @@ from PySide6.QtWidgets import (QFrame, QHBoxLayout, QSizePolicy, QSpacerItem,
                                QTableWidget, QTableWidgetItem, QVBoxLayout)
 from system import sistema
 
+from .excluir_acao import ExcluirAcao
 from .main_menu_buttons import MainManuButton
 from .nova_acao import NovaAcao
 
@@ -46,6 +47,7 @@ class View(QFrame):
 
         self.tabela = QTableWidget(self)
         self.tabela.setEditTriggers(QTableWidget.NoEditTriggers)
+        self.tabela.verticalHeader().setVisible(False)
 
         self.grid.addWidget(self.tabela)
 
@@ -94,11 +96,11 @@ class Opcoes(QFrame):
         self.setMinimumWidth(100)
 
         self.janela_nova_acao = None
+        self.janela_excluir_acao = None
 
         self.grid = QVBoxLayout(self)
 
         self.botao_mais = MainManuButton('', 'icons/add.png')
-        self.botao_mais.clicked.connect(self.abrir_janela_nova_acao)
         self.grid.addWidget(self.botao_mais)
 
         self.botao_menos = MainManuButton('', 'icons/cancel.png')
@@ -113,6 +115,9 @@ class Opcoes(QFrame):
             QSizePolicy.Expanding
         )
         self.grid.addItem(self.spacer)
+
+        self.botao_mais.clicked.connect(self.abrir_janela_nova_acao)
+        self.botao_menos.clicked.connect(self.abrir_janela_excluir_acao)
 
     def atualizar(self):
         logger.log('METHOD', 'Chamando função "ViewAcoes.Opcoes.atualizar"')
@@ -134,3 +139,12 @@ class Opcoes(QFrame):
 
         self.janela_nova_acao = NovaAcao(self.func_atualizar)
         self.janela_nova_acao.show()
+
+    def abrir_janela_excluir_acao(self):
+        logger.log(
+            'METHOD',
+            'Chamando função "ViewAcoes.Opcoes.abrir_janela_excluir_acao"'
+        )
+
+        self.janela_excluir_acao = ExcluirAcao(self.func_atualizar)
+        self.janela_excluir_acao.show()

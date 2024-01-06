@@ -1,6 +1,7 @@
 import requests
 import yfinance as yf
 from loguru import logger
+from PySide6.QtCore import Qt
 from PySide6.QtWidgets import (QHBoxLayout, QLabel, QLineEdit, QPushButton,
                                QSizePolicy, QSpacerItem, QVBoxLayout, QWidget)
 from system import sistema
@@ -14,8 +15,9 @@ class NovaAcao(QWidget):
 
         self.func_atualizar = func_atualizar
 
-        self.setFixedSize(500, 200)
+        self.setFixedSize(450, 200)
         self.setWindowTitle('Adicionar nova ação')
+        self.setWindowFlag(Qt.WindowStaysOnTopHint, True)
 
         self.main_grid = QVBoxLayout(self)
 
@@ -52,6 +54,7 @@ class NovaAcao(QWidget):
         self.grid_2.addWidget(self.txt_key)
 
         self.btn_verificacao = QPushButton('Verificar chave')
+        self.btn_verificacao.setMaximumWidth(150)
         self.grid_3.addWidget(self.btn_verificacao)
 
         self.lbl_verificacao = QLabel('Chave não verificada')
@@ -66,9 +69,11 @@ class NovaAcao(QWidget):
         self.grid_4.addItem(self.spacer_2)
 
         self.btn_cancelar = QPushButton('Cancelar', self)
+        self.btn_cancelar.setMinimumWidth(100)
         self.grid_4.addWidget(self.btn_cancelar)
 
         self.btn_adicionar = QPushButton('Adicionar', self)
+        self.btn_adicionar.setMinimumWidth(100)
         self.grid_4.addWidget(self.btn_adicionar)
 
         self.btn_verificacao.clicked.connect(self.func_btn_verificar)
