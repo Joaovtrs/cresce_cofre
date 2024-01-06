@@ -19,7 +19,7 @@ class ViewAcoes(QFrame):
 
         self.grid = QHBoxLayout(self)
 
-        self.view = View(self)
+        self.view = View(self.func_atualizar, self)
         self.grid.addWidget(self.view)
 
         self.separdor = QFrame(self)
@@ -37,9 +37,13 @@ class ViewAcoes(QFrame):
 
 
 class View(QFrame):
-    def __init__(self, parent=None):
+    def __init__(self, func_atualizar, parent=None):
         super().__init__(parent)
         logger.log('CLASS', 'Criando classe "ViewAcoes.View"')
+
+        self.func_atualizar = func_atualizar
+
+        self.cell_to_change = None
 
         self.setFrameShape(QFrame.Panel)
         self.grid = QVBoxLayout(self)
@@ -51,6 +55,8 @@ class View(QFrame):
         self.atualizar()
 
         self.grid.addWidget(self.tabela)
+        self.tabela.cellDoubleClicked.connect(self.func_cell_clicked)
+        self.tabela.cellChanged.connect(self.func_cell_changed)
 
         self.acoes = None
 
@@ -58,7 +64,7 @@ class View(QFrame):
         logger.log('METHOD', 'Chamando função "ViewAcoes.View.atualizar"')
 
         self.tabela.clear()
-        self.tabela.setColumnHidden(0, True)
+        self.tabela.hideColumn(0)
         self.acoes = None
 
         self.tabela.setColumnCount(6)
@@ -74,6 +80,7 @@ class View(QFrame):
 
         if sistema.is_open:
             self.acoes = sistema.get_acoes()
+            self.acoes.sort(key=lambda item: item['nome'])
             self.tabela.setRowCount(len(self.acoes))
             for i, a in enumerate(self.acoes):
                 self.add_item(i, 0, str(a['id']))
@@ -89,6 +96,34 @@ class View(QFrame):
         item = QTableWidgetItem(i)
         item.setTextAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
         self.tabela.setItem(coluna, linha, item)
+
+    def func_cell_changed(self, row, column):
+        logger.log(
+            'METHOD',
+            'Chamando função "ViewAcoes.View.func_cell_changed"'
+        )
+
+        if self.cell_to_change is not None:
+            if self.cell_to_change == (row, column):
+                id_ = self.tabela.item(row, 0).text()
+                valor = self.tabela.item(row, column).text()
+
+                if column == 1:
+                    sistema.modificar_acao(id_, 'nome', valor)
+                if column == 2:
+                    sistema.modificar_acao(id_, 'key', valor.upper())
+
+                self.func_atualizar()
+            else:
+                self.cell_to_change = None
+
+    def func_cell_clicked(self, row, column):
+        logger.log(
+            'METHOD',
+            'Chamando função "ViewAcoes.View.func_cell_clicked"'
+        )
+
+        self.cell_to_change = (row, column)
 
 
 class Opcoes(QFrame):
@@ -161,4 +196,3 @@ class Opcoes(QFrame):
         if x == QMessageBox.Yes:
             sistema.excluir_acao(id_)
             self.func_atualizar()
-

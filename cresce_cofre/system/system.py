@@ -28,6 +28,15 @@ class System:
         database.create_tables([Acoes, Transacoes])
 
     @staticmethod
+    def get_acoes():
+        logger.log('METHOD', 'Chamando função "System.get_acao"')
+
+        response = Acoes.select()
+        result = [item for item in response.dicts()]
+
+        return result
+
+    @staticmethod
     def add_acao(_nome, _key, _quantidade, _valor_medio, _valor_total):
         logger.log('METHOD', 'Chamando função "System.add_acao"')
 
@@ -40,19 +49,23 @@ class System:
         )
 
     @staticmethod
-    def get_acoes():
-        logger.log('METHOD', 'Chamando função "System.get_acao"')
-
-        response = Acoes.select()
-        result = [item for item in response.dicts()]
-
-        return result
-
-    @staticmethod
     def excluir_acao(_id):
         logger.log('METHOD', 'Chamando função "System.excluir_acao"')
 
         Acoes.delete().where(Acoes.id == _id).execute()
+
+    @staticmethod
+    def modificar_acao(_id, campo, valor):
+        logger.log('METHOD', 'Chamando função "System.modificar_acao"')
+
+        if campo == 'nome':
+            response = Acoes.select().where(Acoes.id == _id).get()
+            response.nome = valor
+            response.save()
+        if campo == 'key':
+            response = Acoes.select().where(Acoes.id == _id).get()
+            response.key = valor
+            response.save()
 
 
 sistema = System()
