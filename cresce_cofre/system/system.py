@@ -49,11 +49,10 @@ class System:
         return result
 
     @staticmethod
-    def excluir_acao(acao):
+    def excluir_acao(_id):
         logger.log('METHOD', 'Chamando função "System.excluir_acao"')
 
-        Acoes.delete().where(Acoes.key == acao).execute()#.get()
-        # print(resultado.nome)
+        Acoes.delete().where(Acoes.id == _id).execute()
 
 
 sistema = System()

@@ -13,8 +13,8 @@ class BaseModel(Model):
 class Acoes(BaseModel):
     logger.log('CLASS', 'Criando classe "Acoes"')
 
-    nome = TextField()
-    key = TextField()
+    nome = TextField(null=True, default='')
+    key = TextField(null=True, default='')
     quantidade = IntegerField(null=True, default=0)
     valor_medio = DoubleField(null=True, default=0.0)
     valor_total = DoubleField(null=True, default=0.0)
