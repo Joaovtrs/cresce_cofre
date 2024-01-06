@@ -80,7 +80,8 @@ class View(QFrame):
 
         if sistema.is_open:
             self.acoes = sistema.get_acoes()
-            self.acoes.sort(key=lambda item: item['nome'])
+            self.acoes.sort(key=lambda item: item['key'])
+
             self.tabela.setRowCount(len(self.acoes))
             for i, a in enumerate(self.acoes):
                 self.add_item(i, 0, str(a['id']))
