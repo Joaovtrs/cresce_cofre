@@ -4,9 +4,7 @@ from PySide6.QtWidgets import (QFrame, QHBoxLayout, QSizePolicy, QSpacerItem,
                                QTableWidget, QTableWidgetItem, QVBoxLayout)
 from system import sistema
 
-from .excluir_acao import ExcluirAcao
 from .main_menu_buttons import MainManuButton
-from .nova_acao import NovaAcao
 
 
 class ViewAcoes(QFrame):
@@ -95,19 +93,16 @@ class Opcoes(QFrame):
         self.setMaximumWidth(100)
         self.setMinimumWidth(100)
 
-        self.janela_nova_acao = None
-        self.janela_excluir_acao = None
-
         self.grid = QVBoxLayout(self)
 
-        self.botao_mais = MainManuButton('', 'icons/add.png')
-        self.grid.addWidget(self.botao_mais)
+        self.btn_mais = MainManuButton('', 'icons/add.png')
+        self.grid.addWidget(self.btn_mais)
 
-        self.botao_menos = MainManuButton('', 'icons/cancel.png')
-        self.grid.addWidget(self.botao_menos)
+        self.btn_menos = MainManuButton('', 'icons/cancel.png')
+        self.grid.addWidget(self.btn_menos)
 
-        self.botao_ajuste = MainManuButton('', 'icons/wrench.png')
-        self.grid.addWidget(self.botao_ajuste)
+        self.btn_ajuste = MainManuButton('', 'icons/wrench.png')
+        self.grid.addWidget(self.btn_ajuste)
 
         self.spacer = QSpacerItem(
             10, 10,
@@ -116,35 +111,36 @@ class Opcoes(QFrame):
         )
         self.grid.addItem(self.spacer)
 
-        self.botao_mais.clicked.connect(self.abrir_janela_nova_acao)
-        self.botao_menos.clicked.connect(self.abrir_janela_excluir_acao)
+        self.btn_mais.clicked.connect(self.func_btn_mais)
+        self.btn_menos.clicked.connect(self.func_btn_menos)
+        self.btn_ajuste.clicked.connect(self.func_btn_ajuste)
 
     def atualizar(self):
         logger.log('METHOD', 'Chamando função "ViewAcoes.Opcoes.atualizar"')
 
         if sistema.is_open:
-            self.botao_mais.setDisabled(False)
-            self.botao_menos.setDisabled(False)
-            self.botao_ajuste.setDisabled(False)
+            self.btn_mais.setDisabled(False)
+            self.btn_menos.setDisabled(False)
+            self.btn_ajuste.setDisabled(False)
         else:
-            self.botao_mais.setDisabled(True)
-            self.botao_menos.setDisabled(True)
-            self.botao_ajuste.setDisabled(True)
+            self.btn_mais.setDisabled(True)
+            self.btn_menos.setDisabled(True)
+            self.btn_ajuste.setDisabled(True)
 
-    def abrir_janela_nova_acao(self):
+    def func_btn_mais(self):
         logger.log(
             'METHOD',
             'Chamando função "ViewAcoes.Opcoes.abrir_janela_nova_acao"'
         )
 
-        self.janela_nova_acao = NovaAcao(self.func_atualizar)
-        self.janela_nova_acao.show()
-
-    def abrir_janela_excluir_acao(self):
+    def func_btn_menos(self):
         logger.log(
             'METHOD',
             'Chamando função "ViewAcoes.Opcoes.abrir_janela_excluir_acao"'
         )
 
-        self.janela_excluir_acao = ExcluirAcao(self.func_atualizar)
-        self.janela_excluir_acao.show()
+    def func_btn_ajuste(self):
+        logger.log(
+            'METHOD',
+            'Chamando função "ViewAcoes.Opcoes.abrir_janela_modificar_acao"'
+        )
